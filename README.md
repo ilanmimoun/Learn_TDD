@@ -17,9 +17,8 @@ That's a test from the book `Test-Driven Development with Python` by H.J.W. Perc
     python manage.py runserver
 
 ### Run the tests
-    cd ~/projects/Learn_TDD
-    python functional_tests.py
     cd ~/projects/Learn_TDD/superlists
+    python functional_tests.py
     python manage.py tests
 
 ### Run the website
