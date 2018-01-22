@@ -30,3 +30,16 @@ class HomePageTest(TestCase):
         request.POST['item_text'] = 'A new list item'
         response = home_page(request)
         self.assertIn('A new list item', response.content.decode())
+
+        expected_html = render_to_string(
+            'home.html',
+            {'new_item_text': 'A new list item'},
+            request=request
+        )
+
+        # Remove the csrf token in both pages:
+        re_csrf = "<input type=\'hidden\' name=\'csrfmiddlewaretoken\' value=\'[a-zA-Z0-9]+\' />"
+        response_without_csrf = re.sub(re_csrf, '', response.content.decode())
+        expected_html_without_csrf = re.sub(re_csrf, '', expected_html)
+
+        self.assertEqual(response_without_csrf, expected_html_without_csrf)
