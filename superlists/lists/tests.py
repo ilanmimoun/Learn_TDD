@@ -14,4 +14,5 @@ class HomePageTest(TestCase):
         response = home_page(request)
         self.assertTrue(response.content.startswith(b'<html>'))
         self.assertIn(b'<title>To-Do lists</title>', response.content)
-        self.assertTrue(response.content.endswith(b'</html>'))
+        # Check if template finish by closing html (do not care about newline)
+        self.assertTrue(response.content.strip().endswith(b'</html>'))
