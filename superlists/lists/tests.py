@@ -43,3 +43,22 @@ class HomePageTest(TestCase):
         expected_html_without_csrf = re.sub(re_csrf, '', expected_html)
 
         self.assertEqual(response_without_csrf, expected_html_without_csrf)
+
+
+class ItemModelsTest(TestCase):
+    def test_saveing_and_retrieving_items(self):
+        first_item = Item()
+        first_item.text = 'The firest (ever) list item'
+        first_item.save()
+
+        second_item = Item()
+        second_item.text = 'Item the second'
+        second_item.save()
+
+        saved_items = Item.objects.all()
+        self.assertEqual(saved_items.count(), 2)
+
+        first_saved_items = saved_items[0]
+        second_saved_items = saved_items[1]
+        self.assertEqual(first_saved_items.text, 'The firest (ever) list item')
+        self.assertEqual(second_saved_items.text, 'Item the second')
