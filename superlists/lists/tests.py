@@ -1,11 +1,10 @@
-import re
-
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
 from django.urls.base import resolve
 
 from lists.models import Item
+from utils.utils import remove_csrf
 from lists.views import home_page
 
 
@@ -18,12 +17,9 @@ class HomePageTest(TestCase):
         request = HttpRequest()
         response = home_page(request)
         expected_html = render_to_string('home.html', request=request)
-        # Remove the csrf token in both pages:
-        re_csrf = "<input type=\'hidden\' name=\'csrfmiddlewaretoken\' value=\'[a-zA-Z0-9]+\' />"
-        response_without_csrf = re.sub(re_csrf, '', response.content.decode())
-        expected_html_without_csrf = re.sub(re_csrf, '', expected_html)
 
-        self.assertEqual(response_without_csrf, expected_html_without_csrf)
+        self.assertEqual(remove_csrf(response.content.decode()),
+                         remove_csrf(expected_html))
 
     def test_home_page_can_save_a_POST_request(self):
         request = HttpRequest()
@@ -38,12 +34,8 @@ class HomePageTest(TestCase):
             request=request
         )
 
-        # Remove the csrf token in both pages:
-        re_csrf = "<input type=\'hidden\' name=\'csrfmiddlewaretoken\' value=\'[a-zA-Z0-9]+\' />"
-        response_without_csrf = re.sub(re_csrf, '', response.content.decode())
-        expected_html_without_csrf = re.sub(re_csrf, '', expected_html)
-
-        self.assertEqual(response_without_csrf, expected_html_without_csrf)
+        self.assertEqual(remove_csrf(response.content.decode()),
+                         remove_csrf(expected_html))
 
 
 class ItemModelsTest(TestCase):
