@@ -42,6 +42,11 @@ class HomePageTest(TestCase):
         self.assertEqual(remove_csrf(response.content.decode()),
                          remove_csrf(expected_html))
 
+    def test_home_page_only_saves_itmes_when_necessary(self):
+        request = HttpRequest()
+        home_page(request)
+        self.assertEqual(Item.objects.count(), 0)
+
 
 class ItemModelsTest(TestCase):
     def test_saveing_and_retrieving_items(self):
