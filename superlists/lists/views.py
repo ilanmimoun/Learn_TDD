@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from lists.models import Item
 
 
 def home_page(request):
+    # import pdb
+    # pdb.set_trace()
     if request.method == 'POST':
-        new_item = Item()
-        new_item.text = request.POST.get('item_text', '')
-        new_item.save()
+        Item.objects.create(text=request.POST['item_text'])
+        return redirect('/')
     return render(request, 'home.html', {'new_item_text': request.POST.get('item_text', '')})

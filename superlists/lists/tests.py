@@ -32,7 +32,7 @@ class HomePageTest(TestCase):
         self.assertEqual(new_item.text, 'A new list item')
         self.assertIn('A new list item', response.content.decode())
 
-        self.assertEqual(int(response.status_code), 302)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/')
 
         expected_html = render_to_string(
