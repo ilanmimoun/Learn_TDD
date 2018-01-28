@@ -3,7 +3,7 @@ from lists.models import Item
 
 
 def home_page(request):
-    if request.POST == 'POST':
+    if request.method == 'POST':
         new_item = Item()
         new_item.text = request.POST.get('item_text', '')
         new_item.save()
