@@ -4,7 +4,7 @@ That's a test from the book `Test-Driven Development with Python` by H.J.W. Perc
 ## Requirements
   - Install __Virtualenv 15.1.0__ ([Tutorial](https://virtualenv.pypa.io/en/stable/installation/)).
   - Install __Python 3.6.3__ ([Tutorial](https://docs.python.org/fr/3.6/installing/index.html)).
-  - Install __Django 1.11.6__ ([Tutorial](https://www.djangoproject.com/download/)).
+  - Install __Django 2.0__ ([Tutorial](https://www.djangoproject.com/download/)).
 
 ## Initialization
 ### Get the code
